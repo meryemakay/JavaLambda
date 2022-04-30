@@ -84,6 +84,11 @@ public class Lambda4 {
 
         //task 11-->Ogrenci sayilari 150'dan az olan universite'lerin en kucuk notOrt'unu bulunuz.
 
+
+
+
+
+
 }
 
 
