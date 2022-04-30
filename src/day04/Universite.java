@@ -67,7 +67,7 @@ public void setBolum(String bolum) {
                 ", bolum='" + bolum + '\'' +
                 ", ogrSayisi=" + ogrSayisi +
                 ", notOrt=" + notOrt +
-                '}';
+                '\n';
     }
 }
 

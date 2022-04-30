@@ -1,8 +1,7 @@
 package day04;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Lambda4 {
 
@@ -23,20 +22,21 @@ public class Lambda4 {
         Universite ytu = new Universite("yıldız teknik", "gemi", 333, 74);
         List<Universite> unv = new ArrayList<>(Arrays.asList(bogazici, itu, istanbul, marmara, ytu));
 
-        System.out.println(notOrt74BykUnv(unv));//
+        System.out.println(notOrt74BykUnv(unv));//false
 
         System.out.println("*****");
+        System.out.println(ogrencıSyısı110danAzMı(unv));//false hepsı 1000 den buyuk
 
+        System.out.println(" *****");
+        System.out.println(matematikVarMı(unv));//true
         System.out.println("*****");
-
+        ogrencıSayısıBkSırala(unv);
+        System.out.println("\n*****");
+        System.out.println(notOrtBkSialiIlkUc(unv));
         System.out.println("*****");
-
+        System.out.println(enAzOgrcSaysi2Unv(unv));
         System.out.println("*****");
-
-        System.out.println("*****");
-
-        System.out.println("*****");
-
+        System.out.println(enAzOgrcSaysi2Unv(unv));
         System.out.println("*****");
 
         System.out.println("*****");
@@ -56,37 +56,114 @@ public class Lambda4 {
     }
 
         //task 02-->ogrc sayilarinin   110 den az olmadigini  kontrol eden pr create ediniz.
+public static boolean ogrencıSyısı110danAzMı(List<Universite> unv){
+return unv.stream().allMatch(t->t.getOgrSayisi()<1000);
 
+}
 
         //task 03-->universite'lerde herhangi birinde "matematik" olup olmadigini  kontrol eden pr create ediniz.
 
+    public static boolean matematikVarMı(List<Universite> unv){
+        return  unv.stream().anyMatch(t->t.getBolum().contains("matematik"));
+
+    }
 
         //task 04-->universite'leri ogr sayilarina gore b->k siralayiniz.
+        public static void ogrencıSayısıBkSırala(List<Universite> unv) {
+
+            System.out.println(unv.stream().sorted(Comparator.comparing(Universite::getOgrSayisi).reversed()).collect(Collectors.toList()));
+//Collectors.toList()->collect'e toplanan elemanlari list'e cevirir
+        }
 
 
         //task 05-->universite'leri notOrt gore  b->k siralayip ilk 3 'unu print ediniz.
+        public static List<Universite> notOrtBkSialiIlkUc(List<Universite> unv) {
+            return unv.
+                    stream().//akısa alındı
+                            sorted(Comparator.comparing(Universite::getNotOrt).reversed()).//notOrt a göre b->k sıralandı
+                            limit(3).//akısın ilk 3 elemanı alındı
+                            collect(Collectors.toList());//akısın ilk 3 elemanı list'e assign edildi
+            //toList());//akısın ilk 3 elemanı list'e assign edildi
+        }
 
 
         //task 06--> ogrc sayisi en az olan 2. universite'yi  print ediniz.
+        public static List<Universite> enAzOgrcSaysi2Unv(List<Universite> unv) {
+            return unv.
+                    stream().//akısa alındı
+                    sorted(Comparator.comparing(Universite::getOgrSayisi)).//sıraldı ogr sayısına gore
+                    limit(2).//ılk 2
+                    skip(1).//1.atlandı
+                    collect(Collectors.toList());//
 
-
+        }
         //task 07--> notOrt 63 'den buyuk olan universite'lerin ogrc sayilarini toplamini print ediniz
+        public static int notOrt63BykUnvOgrcSayisiTopla(List<Universite> unv) {
+            return unv.
+                    stream().
+                    filter(t -> t.getNotOrt() > 63).
+                    map(t -> t.getOgrSayisi()).
+                    // reduce(Integer::sum);
+                    // reduce(Math::addExact);
+                            reduce(0, (t, u) -> t + u);
+
+        }
+
+    public static int notOrt63BykUnvOgrcSayisiToplaToInt(List<Universite> unv) {
+        return unv.
+                stream().
+                filter(t -> t.getNotOrt() > 63).
+                mapToInt(t -> t.getOgrSayisi()).
+                sum();
+        // mapToInt() --> bu method akısdaki elemanların data type'nı
+        // parameterisindeki() degere göre Int data type update eder
+
+    }
 
 
         //task 08--> Ogrenci sayisi 130'dan buyuk olan universite'lerin notOrt'larinin ortalamasini bulunuz.
+        public static OptionalDouble ogrcSayisi333BykNotOrtOrtlamaAl(List<Universite> unv) {
 
+            return unv.
+                    stream().
+                    filter(t -> t.getOgrSayisi() > 333).
+                    mapToDouble(t -> t.getNotOrt()).//
+                            average();//akısdakş elamnalrın ortlaması alındı
+            // mapToDouble() --> bu method akısdaki elemanların data type'nı
+            // parameterisindeki degere göre dooble data type update eder
+
+        }
 
         //task 09-->"matematik" bolumlerinin sayisini  print ediniz.
+        public static int mathBolmSayısı(List<Universite> unv) {
+            return (int) unv.
+                    stream().
+                    filter(t -> t.getBolum().contains("mat")).
+                    count();//akısdaki elelman sayısını return eder
+            //count();-->akısdaki elelman sayısını return eder
 
+        }
 
         //task 10-->Ogrenci sayilari 130'dan fazla olan universite'lerin en buyuk notOrt'unu bulunuz
+        public static OptionalInt ogrcSayisi571BykMaxNotort(List<Universite> unv) {
+            return unv.
+                    stream().//akıs
+                            filter(t -> t.getOgrSayisi() > 571).//unv obj akısı fittrelendi
+                            mapToInt(t -> t.getNotOrt()).//akısdaki unv obj notOrt akısı olarak update edildi
+                            max();   //akısın en byk degerini return eder
+
+        }
 
 
         //task 11-->Ogrenci sayilari 150'dan az olan universite'lerin en kucuk notOrt'unu bulunuz.
+        public static OptionalInt ogrcSayisi1071AzMinnotOrt(List<Universite> unv) {
+            return   unv.
+                    stream().
+                    filter(t->t.getOgrSayisi()<1071).
+                    mapToInt(t->t.getNotOrt()).
+                    min();
 
-
-
-
+        }
 
 
 }
