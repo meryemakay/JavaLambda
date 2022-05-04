@@ -30,17 +30,27 @@ public class Lambda4 {
         System.out.println(" *****");
         System.out.println(matematikVarMı(unv));//true
         System.out.println("*****");
-        ogrencıSayısıBkSırala(unv);
-        System.out.println("\n*****");
-        System.out.println(notOrtBkSialiIlkUc(unv));
-        System.out.println("*****");
-        System.out.println(enAzOgrcSaysi2Unv(unv));
-        System.out.println("*****");
-        System.out.println(enAzOgrcSaysi2Unv(unv));
-        System.out.println("*****");
+        ogrencıSayısıBkSırala(unv);//[Universite{universite='istanbul', bolum='hukuk', ogrSayisi=1453, notOrt=71
+// Universite{universite='marmara', bolum='bilgisayar muh', ogrSayisi=1071, notOrt=77
+                // Universite{universite='istanbul teknik', bolum='matematik', ogrSayisi=622, notOrt=81
+                // Universite{universite='bogazici', bolum='matematik', ogrSayisi=571, notOrt=93
+                //Universite{universite='yıldız teknik', bolum='gemi', ogrSayisi=333, notOrt=74
+
+            System.out.println("\n*****");
+        System.out.println(notOrtBkSialiIlkUc(unv));//[Universite{universite='bogazici', bolum='matematik', ogrSayisi=571, notOrt=93//
+        // Universite{universite='istanbul teknik', bolum='matematik', ogrSayisi=622, notOrt=81
+        //Universite{universite='marmara', bolum='bilgisayar muh', ogrSayisi=1071, notOrt=77
+
+            System.out.println("*****");
+        System.out.println(enAzOgrcSaysi2Unv(unv));//[Universite{universite='bogazici', bolum='matematik', ogrSayisi=571, notOrt=93
 
         System.out.println("*****");
+        System.out.println(enAzOgrcSaysi2Unv(unv));//[Universite{universite='bogazici', bolum='matematik', ogrSayisi=571, notOrt=93
 
+        System.out.println("*****");
+        System.out.println(notOrt63BykUnvOgrcSayisiTopla(unv));//4050
+        System.out.println("*****");
+        System.out.println(ogrcSayisi333BykNotOrtOrtlamaAl(unv));//OptionalDouble[80.5]
         System.out.println("*****");
 
         System.out.println("*****");
@@ -68,6 +78,8 @@ return unv.stream().allMatch(t->t.getOgrSayisi()<1000);
 
     }
 
+
+
         //task 04-->universite'leri ogr sayilarina gore b->k siralayiniz.
         public static void ogrencıSayısıBkSırala(List<Universite> unv) {
 
@@ -87,6 +99,8 @@ return unv.stream().allMatch(t->t.getOgrSayisi()<1000);
         }
 
 
+
+
         //task 06--> ogrc sayisi en az olan 2. universite'yi  print ediniz.
         public static List<Universite> enAzOgrcSaysi2Unv(List<Universite> unv) {
             return unv.
@@ -102,10 +116,10 @@ return unv.stream().allMatch(t->t.getOgrSayisi()<1000);
             return unv.
                     stream().
                     filter(t -> t.getNotOrt() > 63).
-                    map(t -> t.getOgrSayisi()).
+                    map(t -> t.getOgrSayisi()).//akıstakı objeler ogr sayıısna degıstı
                     // reduce(Integer::sum);
                     // reduce(Math::addExact);
-                            reduce(0, (t, u) -> t + u);
+                            reduce(0, (t, u) -> t + u);//ogrencı sayılarını topladık
 
         }
 
