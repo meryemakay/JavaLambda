@@ -15,15 +15,21 @@ public class Lambda06 {
         System.out.println("\nTASK 01 --> haluk.txt dosyasini okuyunuz -->  ");
 
         Path haluk = Path.of("src/day06/haluk.txt");//path haluk obj atandi
-        Stream<String> akıs = Files.lines(haluk);//haluk.çtxt dataları akıs stream'e atandı
+        Stream<String> akıs = Files.lines(haluk);//haluk.txt dataları akıs stream'e atandı
+
+
 
         //1. yol...
         Files.lines(haluk).//path'deki dosyanın dataları akısa alındı
-//Files.lines(Paths.get("src/lambdaTutorial/haluk.txt")).//path'deki dosyanın dataları akısa alındı
+                           //Files.lines(Paths.get("src/lambdaTutorial/haluk.txt")).
+                            // path'deki dosyanın dataları akısa alındı
         forEach(System.out::println);//akısdaki datalar(her satırdaki string) print edildi.
+
         //2.yol..
         akıs.forEach(System.out::println);
-//TASK 02 --> haluk.txt dosyasini buyuk harflerle okuyunuz.(Console'a buyuk harflerle print ediniz.)
+
+
+        //TASK 02 --> haluk.txt dosyasini buyuk harflerle okuyunuz.(Console'a buyuk harflerle print ediniz.)
         System.out.println("\nTASK 02 --> haluk.txt dosyasini buyuk harflerle okuyunuz -->  ");
 
         Files.lines(Paths.get("src/day06/haluk.txt")).
@@ -33,11 +39,13 @@ public class Lambda06 {
 
         //TASK 03 --> haluk.txt dosyasindaki ilk satiri kucuk harflerle print ediniz..
         System.out.println("\nTASK 03 --> haluk.txt dosyasindaki ilk satiri kucuk harflerle okuyunuz 01 -->  ");
-//1. yol limit();
+
+        //1. yol limit();
         Files.lines(haluk).
                 map(String::toLowerCase).
                 limit(1).
                 forEach(System.out::println);
+
         //2. yol findFirst();
         System.out.println(Files.lines(haluk).
                 map(String::toLowerCase).
